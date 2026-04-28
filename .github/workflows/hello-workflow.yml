@@ -3,6 +3,9 @@ name: Hello Workflow
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
  
 jobs:
   say-hello:
@@ -21,3 +24,10 @@ jobs:
           echo "Machine name: $(hostname)"
           echo "Current directory: $(pwd)"
           echo "Date and time: $(date)"
+
+      - name: Show which event triggered this run
+        run: |
+          echo "This workflow was triggered by: ${{ github.event_name }}"
+          echo "On the repository: ${{ github.repository }}"
+          echo "By user: ${{ github.actor }}"
+          echo "Ref (branch or tag): ${{ github.ref }}"
